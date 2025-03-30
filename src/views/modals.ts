@@ -1,0 +1,29 @@
+import { Modal, App } from "obsidian";
+
+export class TimeReachModal extends Modal {
+	gifPath: string;
+	title: string;
+	message: string;
+
+	constructor(app: App, gifPath: string, title: string, message: string) {
+		super(app);
+		this.gifPath = gifPath;
+		this.title = title;
+		this.message = message;
+		this.setTitle(message);
+	}
+
+	onOpen() {
+		const { contentEl } = this;
+		contentEl.addClass("model-content");
+
+		const img = contentEl.createEl("img");
+		img.src = this.gifPath;
+		img.alt = "GO!";
+	}
+
+	onClose() {
+		const { contentEl } = this;
+		contentEl.empty();
+	}
+}
