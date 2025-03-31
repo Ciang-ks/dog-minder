@@ -1,59 +1,58 @@
 .floating-dog-gif {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    z-index: 1000;
-    pointer-events: none;
-  }
-  
-  .floating-dog-gif img {
-    background: transparent;
-  }
-  
-  
-  @keyframes runAcrossScreen {
-    0% {
-      right: calc(100vw - 10px);
-    }
-    100% {
-      right: -100px; 
-    }
-  }
-  
-  .running-dog {
-    animation: runAcrossScreen 10s linear infinite;
-    pointer-events: none;
-  }
-  
-  .status-bar-dog-gif {
-    transition: transform 0.3s ease, filter 0.3s ease;
-    opacity: 0.9;
-  }
-  
-  .status-bar-dog-gif:hover {
-    transform: scale(1.2);
-    filter: drop-shadow(0 0 3px var(--text-accent));
-    opacity: 1;
-    cursor: pointer;
-  }
-  
-  .modal-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    max-width: 90%;
-    max-height: 90%;
-    overflow: auto;
-  }
-  
-  .modal-content img {
-    display: block;
-    width: 100%;
-    max-width: 100%;
-    border-radius: 10px;
-    height: auto;
-    margin: 0 auto;
-  }
+	position: fixed;
+	bottom: 20px;
+	right: 20px;
+	z-index: 1000;
+	pointer-events: none;
+}
+
+.floating-dog-gif img {
+	background: transparent;
+}
+
+@keyframes runAcrossScreen {
+	0% {
+		right: calc(100vw - 10px);
+	}
+	100% {
+		right: -100px;
+	}
+}
+
+.running-dog {
+	animation: runAcrossScreen 10s linear infinite;
+	pointer-events: none;
+}
+
+.status-bar-dog-gif {
+	transition: transform 0.3s ease, filter 0.3s ease;
+	opacity: 0.9;
+}
+
+.status-bar-dog-gif:hover {
+	transform: scale(1.2);
+	filter: drop-shadow(0 0 3px var(--text-accent));
+	opacity: 1;
+	cursor: pointer;
+}
+
+.modal-container-dog {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.modal-content-dog {
+	max-width: 90%;
+	max-height: 90%;
+	overflow: auto;
+}
+
+.modal-content-dog img {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	border-radius: 10px;
+	height: auto;
+	margin: 0 auto;
+}

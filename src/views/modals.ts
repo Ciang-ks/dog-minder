@@ -14,8 +14,10 @@ export class TimeReachModal extends Modal {
 	}
 
 	onOpen() {
+		this.modalEl.addClass("modal-container-dog");
+
 		const { contentEl } = this;
-		contentEl.addClass("model-content");
+		contentEl.addClass("modal-content-dog");
 
 		const img = contentEl.createEl("img");
 		img.src = this.gifPath;
