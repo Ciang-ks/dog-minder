@@ -1,6 +1,6 @@
 import { PluginSettingTab, Setting, Notice, App } from "obsidian";
 import DogPlugin from "../main";
-import { isValidTimeFormat, formatTime } from "../utils/time-utils";
+import { isValidTimeFormat, formatTime, isValidDateFormat, formatDate } from "../utils/time-utils";
 
 export class SettingTab extends PluginSettingTab {
 	plugin: DogPlugin;
@@ -12,7 +12,65 @@ export class SettingTab extends PluginSettingTab {
 	display() {
 		const { containerEl } = this;
 		containerEl.empty();
+		containerEl.createEl("h1", { text: "纪念日设置" });
+		new Setting(containerEl)
+			.setName("启用纪念日功能")
+			.setDesc("是否开启纪念日功能")
+			.addToggle((toggle) => {
+				toggle
+					.setValue(this.plugin.settings.enableAnniversary)
+					.onChange(async (value) => {
+						this.plugin.settings.enableAnniversary = value;
+						await this.plugin.saveSettings();
+						this.display();
+					});
+			});
+		if (this.plugin.settings.enableAnniversary) {
+			new Setting(containerEl)
+				.setName("纪念日事件")
+				.setDesc("设置纪念日事件")
+				.addText((text) => {
+					text
+						.setPlaceholder("例如：我的狗狗生日")
+						.setValue(this.plugin.settings.anniversaryEvent)
+						.onChange(async (value) => {
+							this.plugin.settings.anniversaryEvent = value;
+							await this.plugin.saveSettings();
+						});
+				});
 
+			new Setting(containerEl)
+				.setName("纪念日日期")
+				.setDesc("设置纪念日日期")
+				.addMomentFormat((format) => {
+					format
+						.setPlaceholder("例如：2025-04-09")
+						.setValue(this.plugin.settings.anniversaryDate)
+						.onChange(async (value) => {
+							this.plugin.settings.anniversaryDate = value;
+						});
+
+					const inputEl = format.inputEl;
+					inputEl.addEventListener("keydown", async (event) => {
+						if (event.key === "Enter") {
+							const value = inputEl.value;
+							if (!isValidDateFormat(value)) {
+								new Notice(
+									"请输入有效的日期格式, 如 2025-04-09"
+								);
+								return;
+							}
+							const formattedDate = formatDate(value);
+							this.plugin.settings.anniversaryDate = formattedDate;
+							await this.plugin.saveSettings();
+
+							inputEl.value = formattedDate;
+							inputEl.blur();
+						}
+					}
+					);
+				});
+		}
 		containerEl.createEl("h1", { text: "日常提醒设置" });
 
 		// 遍历所有提醒类型
@@ -50,7 +108,7 @@ export class SettingTab extends PluginSettingTab {
 						.setName(`时间 ${index + 1}`)
 						.addMomentFormat((format) => {
 							format
-								.setPlaceholder("例如 12:30")
+								.setPlaceholder("例如: 12:30")
 								.setValue(time)
 								.onChange(async (value) => {
 									reminder.times[index] = value;

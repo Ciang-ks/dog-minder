@@ -66,6 +66,30 @@ export default class DogPlugin extends Plugin {
 					clearInterval(intervalId);
 				}
 			}, 200);
+			if (this.settings.enableAnniversary) {
+				const anniversaryEvent = this.settings.anniversaryEvent;
+				const anniversaryDate = this.settings.anniversaryDate;
+				if (!anniversaryEvent || !anniversaryDate) {
+					new Notice("请先设置纪念日事件和日期");
+					return;
+				}
+				const today = new Date();
+				const anniversary = new Date(anniversaryDate);
+				const diffTime = today.getTime() - anniversary.getTime();
+				const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+				if (diffDays >= 0) {
+					new Notice(
+						`距离${anniversaryEvent}已经过去了 ${diffDays} 天。`
+					);
+				} else {
+					new Notice(
+						`距离${anniversaryEvent}还有 ${Math.abs(
+							diffDays
+						)} 天。`
+					);
+				}
+			}
 		});
 		ribbonIconEl.addClass("my-plugin-ribbon-class");
 

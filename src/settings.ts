@@ -18,6 +18,9 @@ export interface DogPluginSettings {
 	mySetting: string;
 	usageStats: UsageStats;
 	reminders: Record<string, Reminder>;
+	enableAnniversary: boolean;
+	anniversaryEvent: string;
+	anniversaryDate: string;
 }
 
 export const DEFAULT_SETTINGS: DogPluginSettings = {
@@ -53,13 +56,32 @@ export const DEFAULT_SETTINGS: DogPluginSettings = {
 			message: "睡睡睡!!!",
 			gifPath: "/assets/gif/to_sleep_dog.gif",
 		},
-		other: {
+		other1: {
 			enabled: false,
 			hasTriggered: false,
 			times: ["15:00"],
-			title: "其他提醒",
+			title: "其他提醒1",
 			message: "🥰🥰🥰",
 			gifPath: "/assets/gif/love_dog.gif",
 		},
+		other2: {
+			enabled: false,
+			hasTriggered: false,
+			times: ["17:00"],
+			title: "其他提醒2",
+			message: "🥳🥳🥳",
+			gifPath: "/assets/gif/cele_dog.gif",
+		},
+		other3: {
+			enabled: false,
+			hasTriggered: false,
+			times: ["19:00"],
+			title: "其他提醒3",
+			message: "😘😘😘",
+			gifPath: "/assets/gif/hello_dog.gif",
+		},
 	},
+	enableAnniversary: false,
+	anniversaryEvent: "",
+	anniversaryDate: "",
 };
